@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Underverse phpBB Mod]]></title>
+		<description lang="en"><![CDATA[Adds Underverse variables and components to phpBB.]]></description>
+		<author-group>
+			<author>
+				<realname><![CDATA[Brent Conn]]></realname>
+				<username phpbbcom="no"><![CDATA[onetrickwolf]]></username>
+				<email><![CDATA[brent.conn@gmail.com]]></email>
+				<contributions-group>
+					<contributions status="current" from="2012-02-09" position="Developer"/>
+				</contributions-group>
+			</author>
+		</author-group>
+		<mod-version>1.0.0a</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.10</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2012-02-09</date>
+				<rev-version>1.0.0a</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[First release.]]></change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<sql><![CDATA[ALTER TABLE  `phpbb_users` ADD  `user_essence` INT NOT NULL DEFAULT  '0',
+ADD  `user_exp` INT NOT NULL DEFAULT  '0',
+ADD  `user_elo` INT NOT NULL DEFAULT  '0',
+ADD  `user_indie_tokens` INT NOT NULL DEFAULT  '0',
+ADD  `user_wins` INT NOT NULL DEFAULT  '0',
+ADD  `user_losses` INT NOT NULL DEFAULT  '0']]></sql>
+		<open src="adm/style/acp_users_profile.html">
+			<edit>
+				<find><![CDATA[	<dl> 
+		<dt><label for="birthday">{L_BIRTHDAY}:</label><br /><span>{L_BIRTHDAY_EXPLAIN}</span></dt>
+		<dd>{L_DAY}: <select id="birthday" name="bday_day">{S_BIRTHDAY_DAY_OPTIONS}</select> {L_MONTH}: <select name="bday_month">{S_BIRTHDAY_MONTH_OPTIONS}</select> {L_YEAR}: <select name="bday_year">{S_BIRTHDAY_YEAR_OPTIONS}</select></dd>
+	</dl>
+	</fieldset>]]></find>
+				<action type="after-add"><![CDATA[	<fieldset>
+		<legend>Underverse data</legend>
+	<dl>
+		<dt><label for="essence">Essence:</label></dt>
+		<dd><input type="text" id="essence" name="essence" value="{ESSENCE}" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="exp">Experience points:</label></dt>
+		<dd><input type="text" id="exp" name="exp" value="{EXP}" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="elo">Elo rating:</label></dt>
+		<dd><input type="text" id="elo" name="elo" value="{ELO}" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="indie_tokens">Indie Tokens:</label></dt>
+		<dd><input type="text" id="indie_tokens" name="indie_tokens" value="{INDIE_TOKENS}" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="wins">Wins:</label></dt>
+		<dd><input type="text" id="wins" name="wins" value="{WINS}" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="losses">Losses:</label></dt>
+		<dd><input type="text" id="losses" name="losses" value="{LOSSES}" /></dd>
+	</dl>
+	</fieldset>]]></action>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_users.php">
+			<edit>
+				<find><![CDATA['msn'			=> request_var('msn', $user_row['user_msnm']),]]></find>
+				<action type="after-add"><![CDATA[		// Underverse Mod
+		'essence'			=> request_var('essence', $user_row['user_essence']),
+		'exp'				=> request_var('exp', $user_row['user_exp']),
+		'elo'				=> request_var('elo', $user_row['user_elo']),
+		'indie_tokens'		=> request_var('indie_tokens', $user_row['user_indie_tokens']),
+		'wins'				=> request_var('wins', $user_row['user_wins']),
+		'losses'			=> request_var('losses', $user_row['user_losses']),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['msn'			=> array('string', true, 5, 255),]]></find>
+				<action type="after-add"><![CDATA[		// Underverse Mod
+		'essence'			=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),
+		'exp'				=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),
+		'elo'				=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),
+		'indie_tokens'		=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),
+		'wins'				=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),
+		'losses'			=> array(
+			array('string', true, 1, 11),
+			array('match', true, '#^[0-9]+$#i')),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['user_msnm'		=> $data['msn'],]]></find>
+				<action type="after-add"><![CDATA[		// Underverse Mod
+		'user_essence'			=> $data['essence'],
+		'user_exp'				=> $data['exp'],
+		'user_elo'				=> $data['elo'],
+		'user_indie_tokens'		=> $data['indie_tokens'],
+		'user_wins'				=> $data['wins'],
+		'user_losses'			=> $data['losses'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['MSN'			=> $data['msn'],]]></find>
+				<action type="after-add"><![CDATA[		// Underverse Mod
+		'ESSENCE'			=> $data['essence'],
+		'EXP'				=> $data['exp'],
+		'ELO'				=> $data['elo'],
+		'INDIE_TOKENS'		=> $data['indie_tokens'],
+		'WINS'			=> $data['wins'],
+		'LOSSES'			=> $data['losses'],]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>

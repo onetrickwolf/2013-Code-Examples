@@ -1,0 +1,9 @@
+<SmartFoxConfig>
+
+	<!-- Mandatory Settings -->
+	<ip>canislup.us</ip>
+	<port>9933</port>
+	<zone>BasicExamples</zone>
+	<!-- End Mandatory Settings -->
+	
+</SmartFoxConfig>

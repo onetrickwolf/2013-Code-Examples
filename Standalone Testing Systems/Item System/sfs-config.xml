@@ -1,0 +1,22 @@
+<!-- 
+	:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	SFS2X Client Configuration file
+	(c) 2010 gotoAndPlay
+	www.smartfoxserver.com
+	:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+-->
+
+
+<SmartFoxConfig>
+	<!-- Mandatory Settings -->
+	<ip>68.233.251.163</ip>
+	<port>9933</port>
+	<zone>Underverse</zone>
+	<!-- End Mandatory Settings -->
+	
+	<debug>true</debug>
+	
+	<!-- For generic http port communication -->
+	<httpPort>8080</httpPort>
+	
+</SmartFoxConfig>

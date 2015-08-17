@@ -1,0 +1,1 @@
+Makes a call to maps table in the database.  Retrieves and displays all information from table and also parses out and displays the map array from the first value (fairly easy to make that value dynamic later to choose which make to call).
